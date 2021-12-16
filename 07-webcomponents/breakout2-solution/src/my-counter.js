@@ -51,10 +51,10 @@
         function View(initalModel, shadowRoot) {
             this.output = shadowRoot.getElementById('output');
             shadowRoot.getElementById('incBtn').addEventListener('click', function () {
-                window.dispatchEvent(new Event('increment counter'));
+                shadowRoot.dispatchEvent(new Event('increment counter'));
             });
             shadowRoot.getElementById('decBtn').addEventListener('click', function () {
-                window.dispatchEvent(new Event('decrement counter'));
+                shadowRoot.dispatchEvent(new Event('decrement counter'));
             });
         }
         View.prototype.update = function (model) {
@@ -71,8 +71,8 @@
             var model = new Model();
             var view = new View(model, shadowRoot);
             model.observer = function (m) { return view.update(m); };
-            window.addEventListener('increment counter', function () { return model.inc(); });
-            window.addEventListener('decrement counter', function () { return model.dec(); });
+            shadowRoot.addEventListener('increment counter', function () { return model.inc(); });
+            shadowRoot.addEventListener('decrement counter', function () { return model.dec(); });
         }
         return Controller;
     }());
